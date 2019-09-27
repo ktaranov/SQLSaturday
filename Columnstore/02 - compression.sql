@@ -33,7 +33,7 @@ SELECT i.[object_id]
      , state_description
      , total_rows
      , deleted_rows
-     , size_in_bytes / 8192 * 8. / 1024
+     , size_in_bytes / (1024.0 * 1024.0)
      , SUM(size_in_bytes) OVER (PARTITION BY i.[object_id]) / 8192 * 8. / 1024
 FROM sys.indexes i WITH(NOLOCK)
 CROSS APPLY sys.fn_column_store_row_groups(i.[object_id]) s
@@ -45,3 +45,32 @@ ORDER BY i.[object_id]
 
 ALTER INDEX CCI ON dbo.tCCI REBUILD
 ALTER INDEX CCI ON dbo.tCCIArch REBUILD
+
+---------------------------------------------------------------------------------------------------------
+
+SELECT COL_NAME(p.[object_id], s.column_id)
+     , s.column_id
+     , s.dictionary_id
+     , s.entry_count
+     , s.on_disk_size / (1024.0 * 1024.0)
+     , SUM(s.on_disk_size) OVER () / (1024.0 * 1024.0)
+FROM sys.column_store_dictionaries s
+JOIN sys.partitions p ON p.hobt_id = s.hobt_id
+WHERE p.[object_id] = OBJECT_ID('dbo.tCCI')
+ORDER BY s.column_id
+
+SELECT COL_NAME(p.[object_id], s.column_id)
+     , s.column_id
+     , s.segment_id
+     , s.encoding_type
+     , s.row_count
+     , s.primary_dictionary_id
+     , s.min_data_id
+     , s.max_data_id
+     , s.on_disk_size / (1024.0 * 1024.0)
+     , SUM(s.on_disk_size / (1024.0 * 1024.0)) OVER ()
+FROM sys.column_store_segments s
+JOIN sys.partitions p ON p.hobt_id = s.hobt_id
+WHERE p.[object_id] = OBJECT_ID('dbo.tCCI')
+ORDER BY s.column_id
+       , s.segment_id

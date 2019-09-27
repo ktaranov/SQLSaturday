@@ -67,6 +67,18 @@
           <AssociatedConnUserName />
           <FullPath>05 - pre-aggregation.sql</FullPath>
         </FileNode>
+        <FileNode Name="06 - computed scalar.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:HOMEPC\SQL_2017:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>HOMEPC\SQL_2017</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>06 - computed scalar.sql</FullPath>
+        </FileNode>
+        <FileNode Name="SQLQuery1.sql">
+          <AssociatedConnectionMoniker>8c91a03d-f9b4-46c0-a305-b5dcc79ff907:HOMEPC\SQL_2017:True</AssociatedConnectionMoniker>
+          <AssociatedConnSrvName>HOMEPC\SQL_2017</AssociatedConnSrvName>
+          <AssociatedConnUserName />
+          <FullPath>SQLQuery1.sql</FullPath>
+        </FileNode>
       </Items>
     </LogicalFolder>
     <LogicalFolder Name="Miscellaneous" Type="3" Sorted="true">

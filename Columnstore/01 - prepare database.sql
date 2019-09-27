@@ -23,6 +23,29 @@ GO
 DROP TABLE IF EXISTS dbo.tHeap
 GO
 
+CREATE TABLE dbo.tHeap (
+    RowID INT NOT NULL,
+    RowID_Varchar VARCHAR(100) NOT NULL,
+    RowID_Datetime DATETIME NULL,
+    SalesOrderID INT NOT NULL,
+    SalesOrderDetailID INT NOT NULL,
+    CarrierTrackingNumber NVARCHAR(25) NULL,
+    OrderQty SMALLINT NOT NULL,
+    ProductID INT NOT NULL,
+    SpecialOfferID INT NOT NULL,
+    UnitPrice MONEY NULL,
+    UnitPriceDiscount MONEY NULL,
+    LineTotal NUMERIC(38,6) NOT NULL,
+    OrderDate DATETIME NOT NULL,
+    DueDate DATETIME NOT NULL,
+    ShipDate DATETIME NULL,
+    SalesOrderNumber NVARCHAR(25) NOT NULL,
+    PurchaseOrderNumber NVARCHAR(25) NULL,
+    CustomerID INT NOT NULL
+)
+GO
+
+INSERT INTO dbo.tHeap
 SELECT TOP(5000000) RowID = ROW_NUMBER() OVER (ORDER BY 1/0)
                   , RowID_Varchar = CAST(ROW_NUMBER() OVER (ORDER BY 1/0) AS VARCHAR(100))
                   , RowID_Datetime = DATEADD(DAY, ROW_NUMBER() OVER (ORDER BY 1/0) % 100, '20180101')
@@ -41,7 +64,7 @@ SELECT TOP(5000000) RowID = ROW_NUMBER() OVER (ORDER BY 1/0)
                   , soh.SalesOrderNumber
                   , soh.PurchaseOrderNumber
                   , soh.CustomerID
-INTO dbo.tHeap
+
 FROM AdventureWorks2016.Sales.SalesOrderDetail sd
 JOIN AdventureWorks2016.Sales.SalesOrderHeader soh ON sd.SalesOrderID = soh.SalesOrderID
 CROSS JOIN (SELECT TOP(100) 1 FROM sys.objects) t(a)
