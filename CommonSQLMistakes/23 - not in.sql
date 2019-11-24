@@ -24,6 +24,10 @@ SELECT COUNT_BIG(*)
 FROM Production.Product
 WHERE Color IS NOT NULL
 
+SELECT COUNT_BIG(*)
+FROM Production.Product
+WHERE Color = NULL -- !!!
+
 ------------------------------------------------------------------
 
 DECLARE @t1 TABLE (t1 INT, UNIQUE CLUSTERED(t1))

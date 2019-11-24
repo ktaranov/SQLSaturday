@@ -7,7 +7,7 @@ DECLARE @SQL NVARCHAR(MAX)
 SET @SQL = 'SELECT TOP(5) name FROM sys.objects WHERE schema_id = ' + @param
 
 PRINT @SQL
-EXEC (@SQL)
+EXEC (@SQL) -- 4k chars
 
 SET @SQL = 'SELECT TOP(5) name FROM sys.objects WHERE schema_id = @schema_id'
 
